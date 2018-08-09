@@ -1,0 +1,39 @@
+//
+   Created by lofms on 2018-04-10.
+
+doctype html
+html
+    head
+
+
+        title Search and work
+        link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        script(src="../bower_components/jquery/dist/jquery.js")
+
+
+    body(style="background-color:#DCE1DE")
+        nav.navbar.navbar-expand-md.navbar-dark.bg-dark
+            a.navbar-brand(href='#') Navbar
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExampleDefault', aria-controls='navbarsExampleDefault', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarsExampleDefault.collapse.navbar-collapse
+                ul.navbar-nav.mr-auto
+                    li.nav-item.active
+                        a.nav-link(href='/')
+                            | Home
+                            span.sr-only (current)
+                    li.nav-item
+                        a.nav-link(href='/articles/add') Add Search
+
+                form.form-inline.my-2.my-lg-0
+                    input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
+                    button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+
+        .container
+            block content
+            br
+            hr
+            footer
+                p Copyright &copy; 2018
+        script(src='/bower_components/jquery/dist/jquery.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.js')

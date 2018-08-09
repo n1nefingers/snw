@@ -1,0 +1,15 @@
+extends layout
+
+
+block content
+    h1 #{title}
+    form(method='POST', action='/articles/edit/'+article._id)
+        #form-group
+            label Title:
+            input.form-control(name='title', type='text', value=article.title)
+        #form-group
+            label Description:
+            input.form-control(name='description', type='text', value=article.description)
+        br
+        input.btn.btn-primary(type='submit', value='Submit')
+

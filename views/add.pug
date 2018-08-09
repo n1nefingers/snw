@@ -1,0 +1,74 @@
+
+extends layout
+
+block content
+
+
+
+    h1 #{title}
+    form.form(method='POST', action='/articles/add')
+        #form-group
+            label Title:
+            input.form-control(name='title', type='text')
+        #form-group
+            label Description:
+            input.form-control(name='description', type='text')
+        #form-group
+            br
+            label Parameter:
+            span.queryy
+                br
+                select.query(name='param')
+                    each val in queryParams
+                        option= val
+                select.query(name='operator')
+                    each val in queryOperators
+                        option= val
+                input.query(name='queryText', type='text')
+
+            button()#plus +
+        br
+        input.btn.btn-primary(type='submit', value='Submit')
+    script.
+        var $y = $( ".queryy" ).clone();
+        $(function () {
+            $('#plus').click(function () {
+                var params = [];
+                var operators = [];
+                var queryTexts = [];
+                var andOr = [];
+
+                $(".query:last").after('<select class="query" name="andOr"><option>%255E</option><option>OR</option></select>');
+                $(".query:last").after($y.html());
+
+                $('select[name^=param]').each(function () {
+                    params.push($(this).val());
+                });
+                $('select[name^=operator]').each(function () {
+                    operators.push($(this).find('option:selected').text());
+                });
+                $('input[name^=queryText]').each(function () {
+                    queryTexts.push($(this).val());
+                });
+                $('select[name^=andOr]').each(function () {
+                    andOr.push($(this).val());
+                });
+                console.log(params);
+                console.log(operators);
+                console.log(queryTexts);
+                console.log(andOr);
+
+                //var $x = $('<br><select name="param"><option>caller_id</option><option>short_description</option></select><select name="operator"><option>contains</option><option>is</option></select><input class="form-group" name="queryText" type="text">');
+
+
+
+                return false;
+            });
+        });
+        var x = $('.form-group').children();
+        $("form-group").append(x);
+
+
+
+
+

@@ -1,0 +1,101 @@
+extends layout
+
+
+block content
+    h1 #{title}
+    ul.list-group
+        each article, index in articles
+            br
+            div.row(style="background-color:#CECFC7")
+                div.col-12
+                    h4(style="")= article.title
+                    p= article.description
+
+                    div(style="background-color:#CECFC7s").row
+                        for val, index in article.param
+                            if index % 2
+
+                                    div.col-3.param= val
+                                    div.col-3.operator= article.operator[index]
+                                    input(class="a"+article._id type="text").col-3.text
+                                    div.col-3.andOr= article.andOr[index]
+
+
+
+                            else
+
+                                    div.col-3.param= val
+                                    div.col-3.operator= article.operator[index]
+                                    input(class="a"+article._id type="text").col-3.text
+                                    div.col-3.andOr= article.andOr[index]
+                    br
+
+                    span  visa endast aktiva
+                    input#aktiv(class="aktiv"+article._id type="checkbox" checked)
+                    br
+                    br
+                    button.go(data=article._id article=article) Go
+
+    script.
+        var data = !{data};
+        var queryPath = !{queryPath};
+        console.log('')
+        $('.go').click(function($this){
+
+
+
+
+            var data = $this.currentTarget.attributes.article.value
+            var obj = jQuery.parseJSON(data);
+            var searchTextArray = []
+
+            $('.a' + obj._id).each(function () {
+
+                searchTextArray.push(this.value)
+                console.log(searchTextArray)
+
+            });
+
+
+
+
+
+            data = JSON.parse(data)
+            console.log(data)
+            urlOut = queryPath
+            for (i=0; i <= data.andOr.length;i++){
+                urlOut = urlOut + data.param[i] + data.operator[i] + searchTextArray[i]
+                if (data.andOr[i]){
+                    urlOut = urlOut + data.andOr[i]
+                }
+
+
+
+            }
+            if ($('.aktiv' + obj._id).prop('checked')){
+                urlOut = urlOut + '%255Eactive%253Dtrue%26sysparm_first_row%3D1%26sysparm_view%3D'
+
+            }else{
+                urlOut= urlOut + '%26sysparm_first_row%3D1%26sysparm_view%3D'
+            }
+
+            var win = window.open(urlOut, '_blank');
+            win.focus();
+
+            console.log(urlOut)
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+
+
+
